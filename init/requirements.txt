@@ -1,0 +1,36 @@
+bootstrap script requirements and scratchpad
+
+Steps to follow:
+
+On bootup:
+
+1 Bring up wireless interface
+
+2 Scan for list of SSIDs
+
+3a Connect to first available SSID
+3b If out of SSIDs, move into failover mode
+
+4a If association successful, move on to DHCP
+
+4b If associate failed, move back to 3
+
+5 Get DHCP address (dhclient)
+
+6a If DHCP address is received, validate connectivity
+6b If no DHCP address is received, repeat step 5
+6c If no DHCP address received after 3 attempts, move on to next SSID
+
+7 Validate connectivity - Ping to default gateway / controller address / internet
+8a If connectivity established, move into monitoring mode
+8b If connectivity fails, re-associate and re-dhcp
+8c If connectivity fails 3 times, move on to next SSID
+
+9 Email out to user with IP address on wireless
+
+10 Monitoring mode
+10a Run connectivity test every 30 seconds.
+10b If connectivity test fails, re-associate with current SSID then DHCP.
+10c If connectivity fails 3 times, move on to next SSID
+
+
