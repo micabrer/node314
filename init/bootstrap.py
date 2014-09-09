@@ -7,34 +7,45 @@ Author: Mike C.
 """
 
 import subprocess
+import sys
 
+def checkWireless(essids):
 
-def checkWireless(ssids):
+	print >>sys.stdout, "Starting wireless search..."
+	for ap in essids:
 
-	print "Starting wireless search..."
-	for ap in ssids:
-
-		print "Scanning for " + ap + "..."
+		print >>sys.stdout, "Scanning for " + ap + "..."
 		
-		subprocess.call("iwli
+		try:
+
+			retcode = subprocess.call("iwlist wlan0 scan | grep -i " + ap, shell=True)
+			if retcode != 0:
+				print >>sys.stdout, ap + " not in range."
+				ap = None
+			elif retcode == 0:
+				print >>sys.stdout, ap + " in range. Attempting connection..."
+				return ap
+		except OSError as e:
+			
+			print >>sys.stdout, "Scan failed. Reason: " + e
 
 
-ssids = ['blizzard', 'strider', 'test1', 'test2']
+	return ap
 
-checkWireless(ssids)
+def associateWireless(activeAP):
 
-#linkUp = subprocess.call("ip link set wlan0 up")
-
-
-#if (linkUp == 0)
-#	print "Wlan0 is up!"
+	#print >>sys.stdout, "Starting WPA_Supplicant for " + 
+	
+	
 
 
 
 
+essids = ['1blizzard', '1Scratch_N', '1scratch_G', 'test2']
 
+activeAP=checkWireless(essids)
 
-
-
-
-#print status
+if activeAP == None:
+	print >>sys.stdout, "No APs in range. Closing."
+else:
+	print >>sys.stdout, "Active AP is: " + activeAP
