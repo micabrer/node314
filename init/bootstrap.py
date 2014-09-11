@@ -19,9 +19,9 @@ for ssid in essids:
 	inRange = checkWireless(ssid)
 	
 
-	if inRange == 0
+	if inRange == 0:
 		print >>sys.stdout, "Associate AP would run at this point"
-	elif inRange == 1
+	elif inRange == 1:
 		print >>sys.stdout, "Would skip to next AP, previous one not in range."
-	elif inRange == 2
+	elif inRange == 2:
 		print >>sys.stdout, "Unexpected error at this point. Unclear how to handle."
