@@ -1,7 +1,8 @@
 # Bootsrap definitions file
 # Author: Michael Cabrera
 
-
+import subprocess
+import sys
 
 def checkWireless(ssid):
 
@@ -15,11 +16,13 @@ def checkWireless(ssid):
 	
 	args=['iwlist', 'wlan0', 'scan', '|', 'grep ']
 	process = subprocess.Popen(args[0], args[1], args[2], args[3], args[4], ssid)
-	if retcode != 0:
+
+	if process.returncode != 0:
 		print >>sys.stdout, ssid + " not in range."
-		print >> sys.stdout process.pid
+		print >> sys.stdout, process.pid
 		return 1
-	elif retcode == 0:
+
+	elif process.returncode == 0:
 		print >>sys.stdout, ssid + " in range."
 		return 0
 

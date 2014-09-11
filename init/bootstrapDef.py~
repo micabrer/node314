@@ -12,11 +12,12 @@ def checkWireless(ssid):
 	Return 2 if other error
 	"""
 	print >>sys.stdout, "Scanning for " + ssid + "..."
-
-
-	retcode = subprocess.call("iwlist wlan0 scan | grep -i " + ssid, shell=True)
+	
+	args=['iwlist', 'wlan0', 'scan', '|', 'grep ']
+	process = subprocess.Popen(args[0], args[1], args[2], args[3], args[4], ssid)
 	if retcode != 0:
 		print >>sys.stdout, ssid + " not in range."
+		print >> sys.stdout process.pid
 		return 1
 	elif retcode == 0:
 		print >>sys.stdout, ssid + " in range."
